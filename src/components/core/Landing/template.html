@@ -1,137 +1,55 @@
-<div class="grey lighten-3 pa-0" :id="$style.root">
-  <v-responsive class="grey darken-4">
-    <v-container fill-height fluid :id="$style.banner" class="py-12">
-      <v-layout wrap align-center>
-        <!-- LEFT TEXT -->
-        <v-flex
-          :xs12="$vuetify.breakpoint.smAndDown"
-          :md6="!$vuetify.breakpoint.smAndDown"
-          class="px-4"
-        >
-          <v-card flat dark color="transparent">
-            <!-- Responsive Heading -->
-            <v-card-title
-              class="text-center font-weight-bold"
-              :class="{
-                'display-1': $vuetify.breakpoint.md,
-                'display-2': $vuetify.breakpoint.lgAndUp,
-                'headline': $vuetify.breakpoint.smAndDown
-              }"
-            >
-              Visualize your data with <br />
-              <span >VTK-Viewer</span>
-            </v-card-title>
-
-            <v-card-text class="body-1 white--text mt-4">
-              A general-purpose web app by
-              <a
-                target="_blank"
-                
-                rel="noopener noreferrer"
-              >
-                VTK-Viewer
-              </a>
-              for viewing diverse data formats. Easily extendable with remote
-              services and custom workflows.
-            </v-card-text>
-          </v-card>
-        </v-flex>
-
-        <!-- RIGHT SIDE -->
-        <v-flex
-          :xs12="$vuetify.breakpoint.smAndDown"
-          :md6="!$vuetify.breakpoint.smAndDown"
-          class="d-flex justify-center"
-        >
-          <!-- Desktop Upload -->
-          <div
-            v-if="!$vuetify.breakpoint.smAndDown"
-            :class="$style.dnd"
-            style="width: 100%; max-width: 420px;"
-          >
-            <drag-and-drop enabled @drop="$emit('open-files', $event)">
-              <template v-slot:default="{ dragHover }">
-                <v-sheet
-                  class="d-flex flex-column align-center justify-center"
-                  elevation="8"
-                  color="grey darken-2"
-                  rounded
-                  height="250"
-                  :class="{ [$style.fileUploadHover]: dragHover }"
-                  style="cursor: pointer;"
-                  @click.stop="$emit('open')"
-                >
-                  <v-icon x-large color="white">mdi-cloud-upload</v-icon>
-                  <div class="white--text mt-3">
-                    <strong v-if="dragHover">Drop your file</strong>
-                    <strong v-else>Click to open a file</strong>
-                  </div>
-                  <div class="caption white--text mt-2">
-                    or drop it anywhere in this box
-                  </div>
-                </v-sheet>
-              </template>
-            </drag-and-drop>
-          </div>
-
-          <!-- Mobile Upload Button -->
-          <v-btn
-            v-else
-            color="primary"
-            class="mt-6 text-uppercase font-weight-bold"
-            large
-            @click.stop="$emit('open')"
-          >
-            Upload File
-            <v-icon right>mdi-folder-outline</v-icon>
-          </v-btn>
-        </v-flex>
-      </v-layout>
+<div>
+  <!-- Gray Background Section -->
+  <div style="background-color: #f5f5f5;">
+    <!-- Title -->
+    <v-container class="text-center">
+      <h1><strong>VTK-Viewer Online</strong></h1>
     </v-container>
-  </v-responsive>
 
-  <!-- SAMPLE DATA -->
-  <v-container class="mt-8" fluid>
-    <v-layout row wrap>
-      <v-flex xs12>
-        <span class="title font-weight-bold">Sample Data</span>
-      </v-flex>
-
-      <v-flex
-        v-for="(sample, i) in samples"
-        :key="i"
-        :xs12="$vuetify.breakpoint.xs"
-        :sm6="$vuetify.breakpoint.sm"
-        :md4="$vuetify.breakpoint.mdAndUp"
-        class="pa-2"
-      >
-        <v-card class="elevation-4 rounded-lg overflow-hidden" tile>
-          <v-img :src="sample.image" height="200px" class="white--text" />
-          <div
-            class="pa-4 d-flex flex-column justify-space-between"
-            @click.stop="openSample(sample)"
-            style="cursor: pointer;"
+    <!-- Upload Card -->
+    <v-container style="padding-top: 40px; padding-bottom: 40px;" fluid>
+      <v-row justify="center">
+        <v-col cols="12" md="6">
+          <v-card
+            elevation="4"
+            style="background-color: #00bfa5; padding: 24px; border-radius: 16px; text-align: center;"
           >
-            <div class="subtitle-2 font-weight-bold mb-2">
-              {{ sample.label }} ({{ sample.size }})
-            </div>
-            <div class="caption grey--text" v-if="sample.description">
-              {{ sample.description }}
-            </div>
-            <div class="caption grey--text" v-if="sample.acknowledgement">
-              {{ sample.acknowledgement }}
-            </div>
-          </div>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+            <v-img
+              src="https://img.icons8.com/ios-filled/100/pdf.png"
+              contain
+              height="120"
+              class="mb-4"
+              style="margin: 0 auto;"
+            ></v-img>
 
-  <!-- FOOTER -->
-  <v-footer class="d-flex flex-column mt-8 py-4" color="transparent">
-    <div class="text-center grey--text text--darken-2">
-      <div>&copy; {{ new Date().getFullYear() }} — VTK-Viewer.</div>
-     
-    </div>
-  </v-footer>
+            <v-btn
+              color="white"
+              dark
+              style="color: #00bfa5; font-weight: bold; padding: 12px 24px; border-radius: 8px;"
+              @click="$emit('open')"
+            >
+              📁 Choose Files
+            </v-btn>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+
+  <!-- White Background Description Section -->
+  <div style="background-color: white; padding: 40px 20px;">
+    <v-container style="max-width: 800px; margin: auto;">
+      
+      <p style="font-size: 16px; line-height: 1.6; text-align: center;">
+        <strong>VTK-Viewer</strong> is a powerful and user-friendly web-based application designed for interactive 3D data visualization. Built on top of the Visualization Toolkit (VTK), it enables scientists, engineers, and researchers to load, explore, and analyze complex volumetric and surface data directly in the browser.
+      </p>
+     <ul style="list-style: none; padding-left: 0; text-align: left; max-width: 600px; margin: 16px auto 0;">
+        <li>✅ Drag-and-drop images easily</li>
+        <li>✅ Real-time rendering with customizable view controls</li>
+        <li>✅ Interactive measurement tools</li>
+        <li>✅ Cross-platform access via any modern web browser</li>
+      </ul> 
+
+    </v-container>
+  </div>
 </div>
